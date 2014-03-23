@@ -1,0 +1,22 @@
+{
+  "name": "node-commander",
+  "version": "0.0.0",
+  "homepage": "https://github.com/atesgoral/node-commander",
+  "authors": [
+    "Ates Goral <ates.g@myplanetdigital.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.15",
+    "requirejs": "~2.1.11",
+    "requirejs-text": "~2.0.10",
+    "less": "~1.7.0"
+  }
+}
