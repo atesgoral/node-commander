@@ -1,20 +1,20 @@
 define([
-	'angular',
-	'text!./list.html'
+    'angular',
+    'text!./list.html'
 ], function (
-	ng,
-	template
+    ng,
+    template
 ) {
-	'use strict';
+    'use strict';
 
-	ng.module('nc.list', []).directive('list', function () {
-		return {
-			restrict: 'E',
-			template: template,
-			
-			link: function (scope, element) {
+    ng.module('nc.list', []).directive('list', function () {
+        return {
+            restrict: 'E',
+            template: template,
 
-			}
-		};
-	});
+            link: function (scope, element) {
+
+            }
+        };
+    });
 });

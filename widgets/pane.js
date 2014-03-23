@@ -1,20 +1,20 @@
 define([
-	'angular',
-	'text!./pane.html'
+    'angular',
+    'text!./pane.html'
 ], function (
-	ng,
-	template
+    ng,
+    template
 ) {
-	'use strict';
+    'use strict';
 
-	ng.module('nc.pane', []).directive('pane', function () {
-		return {
-			restrict: 'E',
-			template: template,
-			
-			link: function (scope, element) {
+    ng.module('nc.pane', []).directive('pane', function () {
+        return {
+            restrict: 'E',
+            template: template,
 
-			}
-		};
-	});
+            link: function (scope, element) {
+
+            }
+        };
+    });
 });
