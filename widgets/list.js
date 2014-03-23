@@ -11,9 +11,15 @@ define([
         return {
             restrict: 'E',
             template: template,
+            scope: {
+                files: '='
+            },
 
             link: function (scope, element) {
-
+                scope.cursorIdx = 0;
+                // scope.source.then(function (files) {
+                //     scope.files = files;
+                // });
             }
         };
     });

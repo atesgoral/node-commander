@@ -1,3 +1,18 @@
-<div class="list"> 
-	This is a list
-</div>
+<table class="list">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Ext</th>
+            <th>Size</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="file in files" ng-class="{ cursor: cursorIdx === $index }">
+            <td>{{ file.name }}</td>
+            <td>{{ file.ext }}</td>
+            <td>{{ file.size }}</td>
+            <td>{{ file.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        </tr>
+    </tbody>
+</table>
