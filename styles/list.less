@@ -1,13 +1,25 @@
 .list {
+    box-sizing: border-box;
     width: 100%;
+    font-size: 12px;
+    border-collapse: separate;
+    border-spacing: 1px;
 
     tr {
+    	th, td {
+    		padding: 0 2px;
+    	}
+
         th {
             text-align: left;
-        }
-
-        &.cursor {
-            background: #eee;
+            font-weight: normal;
+            background-color: #eee;
         }
     }
+
+    // &.-focused {
+    // 	tr.-cursor {
+    //         background: #ffe;
+    // 	}
+    // }
 }

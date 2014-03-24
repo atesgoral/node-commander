@@ -1,19 +1,50 @@
 .pane {
     ._tabs {
         list-style-type: none;
-        margin: 4px;
-        padding: 0;
-        display: table;
-        border-collapse: collapse;
+        margin: 0;
+        padding: 3px 4px 0;
+        box-sizing: border-box;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        font-size: 12px;
 
         li {
-            display: table-cell;
+            display: inline-block;
             padding: 4px;
             border: 1px solid #ccc;
+            border-right: none;
+            position: relative;
+            top: 1px;
+            cursor: pointer;
+            color: #444;
+            background: #eee;
+
+            &:last-child {
+                border-right: 1px solid #ccc;
+            }
+
+            &:hover {
+                color: #000;
+                background: #fff;
+            }
 
             &.-active {
-                font-weight: bold;
+                color: #000;
+                border-bottom-color: #fff;
+                background: #fff;
             }
+        }
+    }
+
+    &:focus {
+        outline: none;
+
+        ._tabs {
+            background: #eef;
+        }
+
+        tr.-cursor {
+            background: #ffe;
         }
     }
 }

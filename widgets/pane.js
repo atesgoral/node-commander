@@ -15,12 +15,14 @@ define([
             scope: true,
 
             controller: function ($scope, $element, $attrs) {
-                //console.dir('hello from pane ' + $scope.panes[$attrs.name].name);
-                var paneName = $scope.paneName = $attrs.name;
+                var paneIdx = $scope.idx = $attrs.idx;
+                var pane = $scope.panes[paneIdx];
+
+                pane.$element = $element;
 
                 $scope.activeTabIdx = 0;
 
-                $scope.tabs = $scope.panes[paneName].tabs.map(function (tab) {
+                $scope.tabs = pane.tabs.map(function (tab) {
                     var source = $q.defer();
 
                     source.resolve(tab.files);
@@ -34,6 +36,39 @@ define([
                 $scope.switchToTab = function (tabIdx) {
                     $scope.activeTabIdx = tabIdx;
                 };
+
+                $scope.$on('switch-pane', function () {
+                    console.log('switching');
+                    $scope.focused = !$scope.focused;
+                });
+
+                $element.on('keydown', function (evt) {
+                    switch (evt.which) {
+                    case 9: // Tab
+                        if (paneIdx == 1) { // @todo better way to say "last tab"
+                            $scope.restoreFocus();
+                            evt.preventDefault();
+                        }
+                        break;
+                    case 38: // Arrow up
+                        $scope.$broadcast('move-cursor', -1);
+                        break;
+                    case 40: // Arrow down
+                        $scope.$broadcast('move-cursor', 1);
+                        break;
+                    }
+                });
+
+                $element.on('focus', function (evt) {
+                    //$scope.focused = true;
+                });
+
+                $element.on('blur', function (evt) {
+                    //$scope.focused = false;
+                    // if (paneIdx == 1) { // @todo better way to say "last tab"
+                    //     $scope.restoreFocus();
+                    // }
+                });
             }
         };
     }]);
