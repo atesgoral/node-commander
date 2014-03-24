@@ -7,31 +7,34 @@ define([
 ) {
     'use strict';
 
-    ng.module('nc.pane', []).directive('pane', function () {
+    ng.module('nc.pane', []).directive('pane', [ '$q', function ($q) {
         return {
             restrict: 'E',
             template: template,
+            replace: true,
             scope: true,
 
             controller: function ($scope, $element, $attrs) {
                 //console.dir('hello from pane ' + $scope.panes[$attrs.name].name);
                 var paneName = $scope.paneName = $attrs.name;
 
+                $scope.activeTabIdx = 0;
+
                 $scope.tabs = $scope.panes[paneName].tabs.map(function (tab) {
+                    var source = $q.defer();
+
+                    source.resolve(tab.files);
+
                     return {
-                        display: tab.source
+                        display: tab.sourceUrl,
+                        source: source.promise
                     };
                 });
-            }
 
-            // link: function (scope, element, attrs) {
-            //     scope.paneSourceChange[attrs.side].then(function () {}, function () {}, function (source) {
-            //         console.log('source changed');
-            //         source.then(function (files) {
-            //             scope.files = files;
-            //         });
-            //     });
-            // }
+                $scope.switchToTab = function (tabIdx) {
+                    $scope.activeTabIdx = tabIdx;
+                };
+            }
         };
-    });
+    }]);
 });

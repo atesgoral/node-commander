@@ -1,5 +1,19 @@
 .pane {
-    border: 1px solid #aaa;
-    min-width: 200px;
-    width: 50%;
+    ._tabs {
+        list-style-type: none;
+        margin: 4px;
+        padding: 0;
+        display: table;
+        border-collapse: collapse;
+
+        li {
+            display: table-cell;
+            padding: 4px;
+            border: 1px solid #ccc;
+
+            &.-active {
+                font-weight: bold;
+            }
+        }
+    }
 }

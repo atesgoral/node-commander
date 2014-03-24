@@ -1,6 +1,8 @@
 <div class="pane">
     <ul class="_tabs">
-        <li ng-repeat="tab in tabs">{{ tab.display }}</li>
+        <li ng-repeat="tab in tabs" ng-class="{ '-active': activeTabIdx === $index }" ng-click="switchToTab($index)">{{ tab.display }}</li>
     </ul>
-    <!--list files="files"></list-->
+    <div class="_lists">
+        <list ng-repeat="tab in tabs" ng-show="activeTabIdx === $index" source="tab.source"></list>
+    </div>
 </div>

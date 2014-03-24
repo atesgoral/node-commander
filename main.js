@@ -23,46 +23,57 @@ require([
     'use strict';
 
     ng.module('nc.app', []).run([ '$rootScope', '$q', function ($rootScope, $q) {
-        // var paneSourceChange = {
-        //     left: $q.defer(),
-        //     right: $q.defer()
-        // };
-
-        // $rootScope.paneSourceChange = {
-        //     left: paneSourceChange.left.promise,
-        //     right: paneSourceChange.right.promise
-        // };
-
-        // var source = $q.defer();
-
-        // paneSourceChange.left.notify(source.promise);
-
-        // source.resolve([{
-        //     name: "doge",
-        //     ext: "jpg",
-        //     size: "43210",
-        //     date: new Date()
-        // }, {
-        //     name: "nyan",
-        //     ext: "gif",
-        //     size: "65535",
-        //     date: new Date()
-        // }]);
-
-        // panel name
         $rootScope.panes = {
             left: {
                 name: 'left',
                 tabs: [{
-                    source: 'file://foo'
+                    sourceUrl: 'file://foo',
+                    files: [{
+                        name: "doge",
+                        ext: "jpg",
+                        size: "43210",
+                        date: new Date()
+                    }, {
+                        name: "nyan",
+                        ext: "gif",
+                        size: "65535",
+                        date: new Date()
+                    }]
                 }, {
-                    source: 'file://bar'
+                    sourceUrl: 'file://bar',
+                    files: [{
+                        name: "apple",
+                        ext: "jpg",
+                        size: "13000",
+                        date: new Date()
+                    }, {
+                        name: "banana",
+                        ext: "jpg",
+                        size: "17453",
+                        date: new Date()
+                    }, {
+                        name: "orange",
+                        ext: "jpg",
+                        size: "34222",
+                        date: new Date()
+                    }]
                 }]
             },
             right: {
                 name: 'right',
                 tabs: [{
-                    source: 'file://baz'
+                    sourceUrl: 'file://baz',
+                    files: [{
+                        name: "jquery",
+                        ext: "js",
+                        size: "143210",
+                        date: new Date()
+                    }, {
+                        name: "angular",
+                        ext: "js",
+                        size: "223406",
+                        date: new Date()
+                    }]
                 }]
             }
         };

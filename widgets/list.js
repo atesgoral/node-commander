@@ -12,14 +12,19 @@ define([
             restrict: 'E',
             template: template,
             scope: {
-                files: '='
+                source: '='
             },
 
             link: function (scope, element) {
                 scope.cursorIdx = 0;
-                // scope.source.then(function (files) {
-                //     scope.files = files;
-                // });
+
+                scope.$watch('source', function () {
+                    scope.source.then(function (files) {
+                        scope.files = files;
+                    }, function () {
+
+                    });
+                });
             }
         };
     });
