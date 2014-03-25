@@ -42,6 +42,14 @@ define([
                         });
                     }
                 });
+
+                $element.on('mousedown', function (evt) { // @todo selector?
+                    if (evt.target.tagName === 'TD') {
+                        $scope.$apply(function () {
+                            $scope.cursorIdx = ng.element(evt.target.parentNode).data().$scope.$index;
+                        });
+                    }
+                });
             }
         };
     });
