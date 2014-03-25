@@ -37,7 +37,9 @@ define([
                             cursorIdx = $scope.files.length - 1;
                         }
 
-                        $scope.cursorIdx = cursorIdx;
+                        $scope.$apply(function () {
+                            $scope.cursorIdx = cursorIdx;
+                        });
                     }
                 });
             }
