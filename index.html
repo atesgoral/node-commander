@@ -4,6 +4,16 @@
         <meta charset="UTF-8" />
         <title>Node Commander</title>
         <link rel="stylesheet" type="text/less" href="styles/main.less" />
+        <script type="text/javascript">
+          window.gui = require('nw.gui');
+
+          window.requireNode = window.require;
+          delete window.require;
+
+          window.requireNode.version = process.versions.node;
+          delete process.versions.node;
+        </script>
+
         <script src="bower_components/requirejs/require.js" data-main="main"></script>
     </head>
     <body>

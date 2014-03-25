@@ -1,0 +1,15 @@
+{
+  "name": "node-commander",
+  "description": "An X Commander for the web generation",
+  "version": "1.0.0",
+  "main": "index.html",
+  "window": {
+    "title": "Node Commander",
+    "toolbar": false,
+    "width": 1024,
+    "height": 768
+  },
+  "dependencies" : {
+    "fs-plus": ">=2.0.4"
+  }
+}

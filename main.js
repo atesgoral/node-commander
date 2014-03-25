@@ -14,6 +14,9 @@ require.config({
     }
 });
 
+fs = requireNode('fs-plus');
+path = requireNode('path');
+
 require([
     'angular',
     'less',
@@ -25,18 +28,20 @@ require([
     ng.module('nc.app', []).run([ '$rootScope', '$q', function ($rootScope, $q) {
         $rootScope.panes = [{
             tabs: [{
-                sourceUrl: 'file://foo',
-                files: [{
-                    name: "doge",
-                    ext: "jpg",
-                    size: "43210",
-                    date: new Date()
-                }, {
-                    name: "nyan",
-                    ext: "gif",
-                    size: "65535",
-                    date: new Date()
-                }]
+                sourceUrl: fs.getHomeDirectory(),
+                files: fs.listSync(fs.getHomeDirectory())
+                          .map(function(pathname) {
+                            var ext = path.extname(pathname);
+                            var name = path.basename(pathname, ext);
+                            var stats = fs.statSync(pathname);
+
+                            return {
+                                name: name,
+                                ext: ext,
+                                size: stats.size,
+                                date: stats.mtime
+                            };
+                          })
             }, {
                 sourceUrl: 'file://bar',
                 files: [{
