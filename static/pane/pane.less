@@ -1,4 +1,9 @@
 .pane {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+
     ._tabs {
         list-style-type: none;
         margin: 0;
@@ -46,5 +51,13 @@
         tr.-cursor {
             background: #ffc;
         }
+    }
+
+    ._lists {
+        position: absolute;
+        top: 30px;
+        bottom: 0;
+        width: 100%;
+        overflow: auto;
     }
 }

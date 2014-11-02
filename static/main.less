@@ -6,27 +6,26 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    position: relative;
 }
-.frames {
-    display: table;
+.panes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     width: 100%;
-    height: 100%;
 
-    .frame {
-        display: table-cell;
-        width: auto;
+    .pane {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
 
-        & > * {
-            height: 100%;
+        &:first-child {
+            left: 0;
         }
-    }
 
-    .splitter {
-        display: table-cell;
-        width: 10px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-width: 0 1px;
-        background: #eee;
+        &:last-child {
+            right: 0;
+        }
     }
 }
