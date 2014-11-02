@@ -8,23 +8,22 @@ define([
 ) {
     'use strict';
 
-    angular.module('nc.list', []).directive('list', function () {
+    angular.module('nc.list', []).directive('list', [ '$http', function ($http) {
         return {
             restrict: 'E',
             template: template,
             replace: true,
             scope: {
-                source: '='
+                sourceUrl: '='
             },
 
             link: function ($scope, $element) {
                 $scope.cursorIdx = 0;
 
-                $scope.$watch('source', function () {
-                    $scope.source.then(function (files) {
-                        $scope.files = files;
-                    }, function () {
-
+                $scope.$watch('sourceUrl', function () {
+                    // @todo use $scope.sourceUrl
+                    $http.get('/api/file/ls').then(function (response) {
+                        $scope.files = response.data;
                     });
                 });
 
@@ -53,5 +52,5 @@ define([
                 });
             }
         };
-    });
+    } ]);
 });

@@ -2,7 +2,7 @@
   "name": "node-commander",
   "version": "0.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "nc.js",
   "dependencies": {
     "fs-plus": "^2.3.1",
     "express": "^4.10.1"

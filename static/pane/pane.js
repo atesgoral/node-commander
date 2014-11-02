@@ -8,7 +8,7 @@ define([
 ) {
     'use strict';
 
-    angular.module('nc.pane', []).directive('pane', [ '$q', function ($q) {
+    angular.module('nc.pane', []).directive('pane', function () {
         return {
             restrict: 'E',
             template: template,
@@ -24,13 +24,9 @@ define([
                 $scope.activeTabIdx = 0;
 
                 $scope.tabs = pane.tabs.map(function (tab) {
-                    var source = $q.defer();
-
-                    source.resolve(tab.files);
-
                     return {
                         display: tab.sourceUrl,
-                        source: source.promise
+                        sourceUrl: tab.sourceUrl
                     };
                 });
 
@@ -72,5 +68,5 @@ define([
                 });
             }
         };
-    }]);
+    });
 });

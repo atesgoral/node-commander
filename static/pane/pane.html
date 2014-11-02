@@ -3,6 +3,6 @@
         <li ng-repeat="tab in tabs" ng-class="{ '-active': activeTabIdx === $index }" ng-click="switchToTab($index)">{{ tab.display }}</li>
     </ul>
     <div class="_lists">
-        <list ng-repeat="tab in tabs" ng-show="activeTabIdx === $index" source="tab.source"></list>
+        <list ng-repeat="tab in tabs" ng-show="activeTabIdx === $index" sourceUrl="tab.sourceUrl"></list>
     </div>
 </div>
