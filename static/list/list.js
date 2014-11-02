@@ -19,6 +19,7 @@ define([
 
             link: function ($scope, $element) {
                 $scope.cursorIdx = 0;
+                $scope.isSelected = [];
 
                 $scope.$watch('sourceUrl', function () {
                     // @todo use $scope.sourceUrl
@@ -40,6 +41,14 @@ define([
                         $scope.$apply(function () {
                             $scope.cursorIdx = cursorIdx;
                         });
+
+                        // @todo scroll to cursor
+                    }
+                });
+
+                $scope.$on('toggle-selection', function (evt) {
+                    if ($scope.files && $scope.files.length) {
+                        $scope.isSelected[$scope.cursorIdx] = !$scope.isSelected[$scope.cursorIdx];
                     }
                 });
 

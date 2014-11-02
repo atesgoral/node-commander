@@ -53,6 +53,14 @@ define([
                     case 40: // Arrow down
                         $scope.$broadcast('move-cursor', 1);
                         break;
+                    case 36: // Home
+                    case 35: // End
+                    case 33: // Page Up
+                    case 34: // Page Down
+                    case 45: // Insert
+                        $scope.$broadcast('toggle-selection');
+                        $scope.$broadcast('move-cursor', 1);
+                        break;
                     }
                 });
 
