@@ -1,13 +1,14 @@
 define([
     'angular',
-    'text!./list.html'
+    'text!./list.html',
+    'less!./list'
 ], function (
-    ng,
+    angular,
     template
 ) {
     'use strict';
 
-    ng.module('nc.list', []).directive('list', function () {
+    angular.module('nc.list', []).directive('list', function () {
         return {
             restrict: 'E',
             template: template,
@@ -46,7 +47,7 @@ define([
                 $element.on('mousedown', function (evt) { // @todo selector?
                     if (evt.target.tagName === 'TD') {
                         $scope.$apply(function () {
-                            $scope.cursorIdx = ng.element(evt.target.parentNode).data().$scope.$index;
+                            $scope.cursorIdx = angular.element(evt.target.parentNode).data().$scope.$index;
                         });
                     }
                 });

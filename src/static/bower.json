@@ -17,8 +17,8 @@
     "angular": "~1.3.1"
   },
   "devDependencies": {
-    "requirejs-less": "~0.9.1",
     "requirejs": "~2.1.15",
-    "requirejs-text": "*"
+    "require-less": "~0.1.4",
+    "requirejs-text": "~2.0.12"
   }
 }
