@@ -10,6 +10,7 @@
     // -moz-user-select: none;
     // -khtml-user-select: none;
     -webkit-user-select: none;
+    color: #444;
 
     tr {
         th, td {
@@ -26,18 +27,37 @@
             color: red;
         }
 
+        td {
+            &._name {
+                &:before {
+                    // content: '\f016';
+                    content: '\f15b';
+                    color: #8ca3ec;
+                    font-family: 'FontAwesome';
+                    padding-right: .5em;
+                }
+            }
+        }
+
         &.-directory {
             > ._name {
                 &:before {
-                    content: '['
+                    // content: '\f114';
+                    content: '\f07b';
+                    color: #fbcc6f;
                 }
-                &:after {
-                    content: ']'
+            }
+            &.-directory-up {
+                > ._name {
+                    &:before {
+                        content: '\f062';
+                        color: #878787;
+                    }
                 }
             }
             > ._size {
                 &:before {
-                    content: '<DIR>'
+                    content: '<DIR>';
                 }
             }
         }

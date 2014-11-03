@@ -23,7 +23,7 @@ app.get('/api/file/ls', function (request, response) {
                     path: _path,
                     filename: path.basename(_path),
                     name: name, // @todo redundant
-                    ext: ext, // @todo redundant
+                    ext: ext.substr(1), // @todo redundant
                     size: stat.size,
                     isDirectory: stat.isDirectory(),
                     lastChanged: stat.ctime,
