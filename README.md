@@ -8,4 +8,4 @@ cd ..
 node nc
 ```
 
-Visit http://localhost:6153
+Visit [http://localhost:6153](http://localhost:6153)
