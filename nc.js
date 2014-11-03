@@ -21,6 +21,7 @@ app.get('/api/file/ls', function (request, response) {
 
                 return {
                     path: _path,
+                    filename: path.basename(_path),
                     name: name, // @todo redundant
                     ext: ext, // @todo redundant
                     size: stat.size,

@@ -29,7 +29,12 @@ define([
                         var data = response.data;
 
                         $scope.dirPath = data.dirPath;
-                        $scope.files = data.files;
+                        $scope.files = data.files.sort(function (a, b) {
+                            return b.isDirectory - a.isDirectory
+                                || a.name.localeCompare(b.name)
+                                || a.ext.localeCompare(b.ext);
+                            // @todo add sorting by columns after directory check
+                        });
 
                         if (data.parentPath) {
                             $scope.files.unshift({
