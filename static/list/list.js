@@ -45,6 +45,11 @@ define([
                         }
 
                         $scope.cursorIdx = 0; // @todo set cursor to child dir if just moved up dir
+                    }, function (response) {
+                        if (response.status) {
+                            // @todo improperly implemented
+                            $scope.files[$scope.cursorIdx].isForbidden = true;
+                        }
                     });
                 });
 

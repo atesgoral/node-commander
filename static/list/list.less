@@ -62,6 +62,17 @@
                 }
             }
         }
+
+        &.-forbidden {
+            > ._name {
+                &:after {
+                    content: '\f05e';
+                    color: red;
+                    font-family: 'FontAwesome';
+                    padding-left: .33em;
+                }
+            }
+        }
     }
 
     // &.-focused {

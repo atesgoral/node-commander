@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="file in files" ng-class="{ '-cursor': cursorIdx === $index, '-selected': isSelected[$index], '-directory': file.isDirectory, '-directory-up': file.name === '..' }">
+        <tr ng-repeat="file in files" ng-class="{ '-cursor': cursorIdx === $index, '-selected': isSelected[$index], '-directory': file.isDirectory, '-directory-up': file.name === '..', '-forbidden': file.isForbidden }">
             <td class="_name">{{ file.name }}</td>
             <td class="_ext">{{ file.ext }}</td>
             <td class="_size">{{ file.isDirectory ? '' : file.size }}</td>
