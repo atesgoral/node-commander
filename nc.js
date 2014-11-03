@@ -18,6 +18,9 @@ app.get('/api/file/ls', function (request, response) {
                       name: name,
                       ext: ext,
                       size: stat.size,
+                      isDirectory: stat.isDirectory(),
+                      lastChanged: stat.ctime,
+                      lastAccessed: stat.atime,
                       lastModified: stat.mtime
                   };
             })
