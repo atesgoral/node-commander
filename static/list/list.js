@@ -55,7 +55,24 @@ define([
                 $element.on('mousedown', function (evt) { // @todo selector?
                     if (evt.target.tagName === 'TD') {
                         $scope.$apply(function () {
-                            $scope.cursorIdx = angular.element(evt.target.parentNode).data().$scope.$index;
+                            var idx = angular.element(evt.target.parentNode).data().$scope.$index;
+
+                            if (evt.shiftKey) {
+                                var start = Math.min($scope.cursorIdx, idx),
+                                    end = Math.max($scope.cursorIdx, idx);
+
+                                $scope.isSelected = [];
+
+                                for (var i = start; i <= end; i++) {
+                                    $scope.isSelected[i] = true;
+                                }
+
+                                evt.preventDefault();
+                            } else if (evt.ctrlKey) {
+                                $scope.isSelected[idx] = !$scope.isSelected[idx];
+                            }
+
+                            $scope.cursorIdx = idx;
                         });
                     }
                 });
