@@ -7,12 +7,12 @@ var app = express();
 app.use('/', express.static(__dirname + '/static'));
 
 app.get('/api/file/ls', function (request, response) {
-    var dirPath = request.query.dirPath || fs.getHomeDirectory();
-
-    console.log(dirPath);
+    var dirPath = request.query.dirPath || fs.getHomeDirectory(),
+        parentPath = path.join(dirPath, '..');
 
     response.json({
         dirPath: dirPath,
+        parentPath: parentPath !== dirPath ? parentPath : null,
         files: fs.listSync(dirPath) // @todo use async
             .map(function (_path) {
                 var ext = path.extname(_path),

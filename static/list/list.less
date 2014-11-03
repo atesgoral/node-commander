@@ -25,6 +25,22 @@
         &.-selected {
             color: red;
         }
+
+        &.-directory {
+            > ._name {
+                &:before {
+                    content: '['
+                }
+                &:after {
+                    content: ']'
+                }
+            }
+            > ._size {
+                &:before {
+                    content: '<DIR>'
+                }
+            }
+        }
     }
 
     // &.-focused {

@@ -18,11 +18,9 @@ define([
             // },
 
             link: function ($scope, $element) {
-                $scope.cursorIdx = 0;
                 $scope.isSelected = [];
 
                 $scope.$watch('sourceUrl', function () {
-                    console.log($scope.sourceUrl);
                     // @todo use $scope.sourceUrl
                     var url = $scope.sourceUrl;
                     // always assuming file: for now
@@ -32,16 +30,26 @@ define([
 
                         $scope.dirPath = data.dirPath;
                         $scope.files = data.files;
+
+                        if (data.parentPath) {
+                            $scope.files.unshift({
+                                path: data.parentPath,
+                                name: '..',
+                                isDirectory: true
+                            });
+                        }
+
+                        $scope.cursorIdx = 0; // @todo set cursor to child dir if just moved up dir
                     });
                 });
 
-                $scope.$on('move-cursor', function (evt, vector) {
+                $scope.$on('move-cursor-by', function (evt, vector) {
                     if ($scope.files && $scope.files.length) {
                         var cursorIdx = $scope.cursorIdx + vector;
 
                         if (cursorIdx < 0) {
                             cursorIdx = 0;
-                        } else if (cursorIdx === $scope.files.length) {
+                        } else if (cursorIdx >= $scope.files.length) {
                             cursorIdx = $scope.files.length - 1;
                         }
 
@@ -53,13 +61,55 @@ define([
                     }
                 });
 
+                $scope.$on('move-cursor-to', function (evt, where) {
+                    if ($scope.files && $scope.files.length) {
+                        var cursorIdx = {
+                            first: 0,
+                            last: $scope.files.length - 1
+                        }[where];
+
+                        if (!isNaN(cursorIdx)) {
+                            $scope.$apply(function () {
+                                $scope.cursorIdx = cursorIdx;
+                            });
+                        }
+
+                        // @todo scroll to cursor
+                    }
+                });
+
                 $scope.$on('toggle-selection', function (evt) {
                     if ($scope.files && $scope.files.length) {
                         $scope.isSelected[$scope.cursorIdx] = !$scope.isSelected[$scope.cursorIdx];
                     }
                 });
 
+                $scope.$on('exec', function (evt) {
+                    // @todo if ($scope.files && $scope.files.length) {
+                    var file = $scope.files[$scope.cursorIdx];
+
+                    if (file.isDirectory) {
+                        $scope.$apply(function () {
+                            $scope.sourceUrl = file.path;
+                        });
+                    } else {
+                        // @todo shell exec file
+                    }
+                });
+
+                $scope.$on('dir-up', function (evt) {
+                    // @todo if ($scope.files && $scope.files.length) {
+                    var file = $scope.files[0];
+
+                    if (file.name === '..') {
+                        $scope.$apply(function () {
+                            $scope.sourceUrl = file.path;
+                        });
+                    }
+                });
+
                 $element.on('mousedown', function (evt) { // @todo selector?
+                    // @todo if ($scope.files && $scope.files.length) {
                     if (evt.target.tagName === 'TD') {
                         $scope.$apply(function () {
                             var idx = angular.element(evt.target.parentNode).data().$scope.$index;
@@ -85,6 +135,7 @@ define([
                 });
 
                 $element.on('dblclick', function (evt) {
+                    // @todo if ($scope.files && $scope.files.length) {
                     var idx = angular.element(evt.target.parentNode).data().$scope.$index;
 
                     $scope.$apply(function () {

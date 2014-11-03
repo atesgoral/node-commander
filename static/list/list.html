@@ -8,11 +8,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="file in files" ng-class="{ '-cursor': cursorIdx === $index, '-selected': isSelected[$index] }">
-            <td>{{ file.name }}</td>
-            <td>{{ file.ext }}</td>
-            <td>{{ file.isDirectory ? '&lt;DIR&gt;' : file.size }}</td>
-            <td>{{ file.lastModified | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <tr ng-repeat="file in files" ng-class="{ '-cursor': cursorIdx === $index, '-selected': isSelected[$index], '-directory': file.isDirectory }">
+            <td class="_name">{{ file.name }}</td>
+            <td class="_ext">{{ file.ext }}</td>
+            <td class="_size">{{ file.isDirectory ? '' : file.size }}</td>
+            <td class="_modified">{{ file.lastModified | date:'yyyy-MM-dd HH:mm:ss' }}</td>
         </tr>
     </tbody>
 </table>

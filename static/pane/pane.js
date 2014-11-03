@@ -35,31 +35,45 @@ define([
                 };
 
                 $scope.$on('switch-pane', function () {
-                    console.log('switching');
                     $scope.focused = !$scope.focused;
                 });
 
                 $element.on('keydown', function (evt) {
                     switch (evt.which) {
+                    case 8: // Backspace
+                        $scope.$broadcast('dir-up');
+                        evt.preventDefault();
+                        break;
                     case 9: // Tab
                         if (paneIdx == 1) { // @todo better way to say "last tab"
                             $scope.restoreFocus();
                             evt.preventDefault();
                         }
                         break;
+                    case 13: // Enter
+                        $scope.$broadcast('exec');
+                        break;
                     case 38: // Arrow up
-                        $scope.$broadcast('move-cursor', -1);
+                        $scope.$broadcast('move-cursor-by', -1);
                         break;
                     case 40: // Arrow down
-                        $scope.$broadcast('move-cursor', 1);
+                        $scope.$broadcast('move-cursor-by', 1);
+                        break;
+                    case 33: // Page Up
+                        $scope.$broadcast('move-cursor-by', -10); // @todo determine page size
+                        break;
+                    case 34: // Page Down
+                        $scope.$broadcast('move-cursor-by', 10); // @todo determine page size
                         break;
                     case 36: // Home
+                        $scope.$broadcast('move-cursor-to', 'first');
+                        break;
                     case 35: // End
-                    case 33: // Page Up
-                    case 34: // Page Down
+                        $scope.$broadcast('move-cursor-to', 'last');
+                        break;
                     case 45: // Insert
                         $scope.$broadcast('toggle-selection');
-                        $scope.$broadcast('move-cursor', 1);
+                        $scope.$broadcast('move-cursor-by', 1);
                         break;
                     }
                 });
