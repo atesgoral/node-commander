@@ -25,7 +25,7 @@ define([
 
                 $scope.tabs = pane.tabs.map(function (tab) {
                     return {
-                        display: tab.sourceUrl,
+                        display: '?', /*tab.sourceUrl.split(/[\/\\]/).pop(),*/
                         sourceUrl: tab.sourceUrl
                     };
                 });

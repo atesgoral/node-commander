@@ -9,13 +9,10 @@ define([
     angular.module('nc.app', []).run([ '$rootScope', '$q', function ($rootScope, $q) {
         $rootScope.panes = [{
             tabs: [{
-                sourceUrl: 'file://foo'
             }, {
-                sourceUrl: 'file://bar'
             }]
         }, {
             tabs: [{
-                sourceUrl: 'file://baz'
             }]
         }];
 

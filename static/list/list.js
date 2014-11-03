@@ -13,18 +13,25 @@ define([
             restrict: 'E',
             template: template,
             replace: true,
-            scope: {
-                sourceUrl: '='
-            },
+            // scope: {
+            //     sourceUrl: '='
+            // },
 
             link: function ($scope, $element) {
                 $scope.cursorIdx = 0;
                 $scope.isSelected = [];
 
                 $scope.$watch('sourceUrl', function () {
+                    console.log($scope.sourceUrl);
                     // @todo use $scope.sourceUrl
-                    $http.get('/api/file/ls').then(function (response) {
-                        $scope.files = response.data;
+                    var url = $scope.sourceUrl;
+                    // always assuming file: for now
+
+                    $http.get('/api/file/ls', { params: { dirPath: url } }).then(function (response) {
+                        var data = response.data;
+
+                        $scope.dirPath = data.dirPath;
+                        $scope.files = data.files;
                     });
                 });
 
@@ -75,6 +82,14 @@ define([
                             $scope.cursorIdx = idx;
                         });
                     }
+                });
+
+                $element.on('dblclick', function (evt) {
+                    var idx = angular.element(evt.target.parentNode).data().$scope.$index;
+
+                    $scope.$apply(function () {
+                        $scope.sourceUrl = $scope.files[idx].path;
+                    });
                 });
             }
         };
