@@ -106,10 +106,9 @@ define([
                     }
                 });
 
-                $scope.$on('expand-selection', function (evt) {
-                    console.log('wow');
+                function modifySelection(expand) {
                     if ($scope.files && $scope.files.length) {
-                        var pattern = $window.prompt('Expand selection using pattern:');
+                        var pattern = $window.prompt((expand ? 'Expand' : 'Shrink') + ' selection using pattern:', '*.*');
 
                         if (pattern) {
                             var re = new RegExp(
@@ -124,13 +123,21 @@ define([
 
                             $scope.$apply(function () {
                                 $scope.files.forEach(function (file, idx) {
-                                    if (re.match(file.filename)) {
-                                        $scope.isSelected[idx] = true;
+                                    if (re.test(file.filename)) {
+                                        $scope.isSelected[idx] = expand;
                                     }
                                 });
                             });
                         }
                     }
+                }
+
+                $scope.$on('expand-selection', function (evt) {
+                    modifySelection(true);
+                });
+
+                $scope.$on('shrink-selection', function (evt) {
+                    modifySelection(false);
                 });
 
                 $scope.$on('exec', function (evt) {

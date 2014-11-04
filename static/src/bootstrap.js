@@ -9,7 +9,7 @@ define([
     angular.module('nc.app', []).run([ '$rootScope', '$q', function ($rootScope, $q) {
         $rootScope.panes = [{
             tabs: [{
-            }, {
+            //}, {
             }]
         }, {
             tabs: [{
