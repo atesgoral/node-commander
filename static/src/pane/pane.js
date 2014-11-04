@@ -45,6 +45,7 @@ define([
                         evt.preventDefault();
                         break;
                     case 9: // Tab
+                        // @todo perhaps no need to use tabindex + proper focus
                         if (paneIdx == 1) { // @todo better way to say "last tab"
                             $scope.restoreFocus();
                             evt.preventDefault();
@@ -79,15 +80,27 @@ define([
                         $scope.$broadcast('toggle-selection');
                         $scope.$broadcast('move-cursor-by', 1);
                         break;
+                    case 56: // 8 (*)
+                        if (!evt.shiftKey) {
+                            break;
+                        }
+                        /* falls through */
                     case 106: // Num *
                         $scope.$broadcast('invert-selection');
                         break;
+                    case 187: // = (+)
+                        if (!evt.shiftKey) {
+                            break;
+                        }
+                        /* falls through */
                     case 107: // Num +
                         $scope.$broadcast('expand-selection');
                         break;
+                    case 189: // -
                     case 109: // Num -
                         $scope.$broadcast('shrink-selection');
                         break;
+                    case 191: // /
                     case 109: // Num /
                         // @todo restore previous selection
                         break;
