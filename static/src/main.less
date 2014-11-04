@@ -1,0 +1,31 @@
+html {
+    height: 100%;
+}
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: relative;
+}
+.panes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+
+    .pane {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+
+        &:first-child {
+            left: 0;
+        }
+
+        &:last-child {
+            right: 0;
+        }
+    }
+}
