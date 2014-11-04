@@ -78,6 +78,18 @@ define([
                         $scope.$broadcast('toggle-selection');
                         $scope.$broadcast('move-cursor-by', 1);
                         break;
+                    case 106: // Num *
+                        // @todo invert selection
+                        break;
+                    case 107: // Num +
+                        // @todo wildcard add selection
+                        break;
+                    case 109: // Num -
+                        // @todo wildcard remove selection
+                        break;
+                    case 109: // Num /
+                        // @todo restore previous selection
+                        break;
                     }
                 });
 
