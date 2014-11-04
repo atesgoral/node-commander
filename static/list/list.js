@@ -146,11 +146,14 @@ define([
 
                 $element.on('dblclick', function (evt) {
                     // @todo if ($scope.files && $scope.files.length) {
-                    var idx = angular.element(evt.target.parentNode).data().$scope.$index;
+                    var idx = angular.element(evt.target.parentNode).data().$scope.$index,
+                        file = $scope.files[idx];
 
-                    $scope.$apply(function () {
-                        $scope.sourceUrl = $scope.files[idx].path;
-                    });
+                    if (file.isDirectory) {
+                        $scope.$apply(function () {
+                            $scope.sourceUrl = file.path;
+                        });
+                    }
                 });
             }
         };
