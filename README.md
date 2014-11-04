@@ -34,3 +34,4 @@ Visit [http://localhost:6153](http://localhost:6153)
 * Click to move cursor
 * <kbd>Ctrl</kbd> + click to toggle selection
 * <kbd>Shift</kbd> + click to select range of items from previous cursor position to clicked item
+* Double click to go into directory
