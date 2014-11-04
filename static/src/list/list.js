@@ -8,7 +8,7 @@ define([
 ) {
     'use strict';
 
-    angular.module('nc.list', []).directive('list', [ '$http', function ($http) {
+    angular.module('nc.list', []).directive('list', [ '$http', '$window', function ($http, $window) {
         return {
             restrict: 'E',
             template: template,
@@ -99,10 +99,37 @@ define([
                 $scope.$on('invert-selection', function (evt) {
                     if ($scope.files && $scope.files.length) {
                         $scope.$apply(function () {
-                            for (var idx = 0; idx < $scope.files.length; idx++) {
+                            $scope.files.forEach(function (file, idx) {
                                 $scope.isSelected[idx] = !$scope.isSelected[idx];
-                            }
+                            });
                         });
+                    }
+                });
+
+                $scope.$on('expand-selection', function (evt) {
+                    console.log('wow');
+                    if ($scope.files && $scope.files.length) {
+                        var pattern = $window.prompt('Expand selection using pattern:');
+
+                        if (pattern) {
+                            var re = new RegExp(
+                                pattern
+                                    .replace(/\./g, '\\.')
+                                    .replace(/\+/g, '\\+')
+                                    .replace(/\{/g, '\\{')
+                                    .replace(/\(/g, '\\(') // @todo check if there are any other special characters that need escaping
+                                    .replace(/\?/g, '.')
+                                    .replace(/\*/g, '.*?')
+                            );
+
+                            $scope.$apply(function () {
+                                $scope.files.forEach(function (file, idx) {
+                                    if (re.match(file.filename)) {
+                                        $scope.isSelected[idx] = true;
+                                    }
+                                });
+                            });
+                        }
                     }
                 });
 

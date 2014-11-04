@@ -28,7 +28,9 @@ Visit [http://localhost:6153](http://localhost:6153)
 
 * <kbd>Space</kbd> to toggle selection at cursor
 * <kbd>Insert</kbd> to toggle selection at cursor and move cursor down
-* Numeric pad <kbd>*</kbd> to invert selections
+* Numeric pad <kbd>*</kbd> to invert selection
+* Numeric pad <kbd>+</kbd> to expand selection using wildcards
+* Numeric pad <kbd>-</kbd> to shrink selection using wildcards
 
 ### Mouse Navigation
 

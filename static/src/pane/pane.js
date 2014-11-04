@@ -83,10 +83,10 @@ define([
                         $scope.$broadcast('invert-selection');
                         break;
                     case 107: // Num +
-                        // @todo wildcard add selection
+                        $scope.$broadcast('expand-selection');
                         break;
                     case 109: // Num -
-                        // @todo wildcard remove selection
+                        $scope.$broadcast('shrink-selection');
                         break;
                     case 109: // Num /
                         // @todo restore previous selection
