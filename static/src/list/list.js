@@ -96,6 +96,16 @@ define([
                     }
                 });
 
+                $scope.$on('invert-selection', function (evt) {
+                    if ($scope.files && $scope.files.length) {
+                        $scope.$apply(function () {
+                            for (var idx = 0; idx < $scope.files.length; idx++) {
+                                $scope.isSelected[idx] = !$scope.isSelected[idx];
+                            }
+                        });
+                    }
+                });
+
                 $scope.$on('exec', function (evt) {
                     // @todo if ($scope.files && $scope.files.length) {
                     var file = $scope.files[$scope.cursorIdx];

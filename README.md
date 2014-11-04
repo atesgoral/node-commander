@@ -28,6 +28,7 @@ Visit [http://localhost:6153](http://localhost:6153)
 
 * <kbd>Space</kbd> to toggle selection at cursor
 * <kbd>Insert</kbd> to toggle selection at cursor and move cursor down
+* Numeric pad <kbd>*</kbd> to invert selections
 
 ### Mouse Navigation
 

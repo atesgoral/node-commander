@@ -55,6 +55,7 @@ define([
                         break;
                     case 32: // Space
                         $scope.$broadcast('toggle-selection');
+                        // @todo compute directory size
                         break;
                     case 38: // Arrow up
                         $scope.$broadcast('move-cursor-by', -1);
@@ -79,7 +80,7 @@ define([
                         $scope.$broadcast('move-cursor-by', 1);
                         break;
                     case 106: // Num *
-                        // @todo invert selection
+                        $scope.$broadcast('invert-selection');
                         break;
                     case 107: // Num +
                         // @todo wildcard add selection
