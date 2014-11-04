@@ -53,6 +53,9 @@ define([
                     case 13: // Enter
                         $scope.$broadcast('exec');
                         break;
+                    case 32: // Space
+                        $scope.$broadcast('toggle-selection');
+                        break;
                     case 38: // Arrow up
                         $scope.$broadcast('move-cursor-by', -1);
                         break;

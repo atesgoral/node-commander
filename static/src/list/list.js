@@ -90,7 +90,9 @@ define([
 
                 $scope.$on('toggle-selection', function (evt) {
                     if ($scope.files && $scope.files.length) {
-                        $scope.isSelected[$scope.cursorIdx] = !$scope.isSelected[$scope.cursorIdx];
+                        $scope.$apply(function () {
+                            $scope.isSelected[$scope.cursorIdx] = !$scope.isSelected[$scope.cursorIdx];
+                        });
                     }
                 });
 
