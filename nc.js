@@ -21,7 +21,21 @@ app.get('/api/file/ls', function (request, response) {
                 .map(function (_path) {
                     var ext = path.extname(_path),
                         name = path.basename(_path, ext),
+                        stat;
+
+                    try {
                         stat = fs.statSync(_path);
+                    } catch (e) {
+                        switch (e.code) {
+                        case 'EACCES':
+                        case 'EPERM':
+                        case 'EBUSY':
+                            stat = { isDirectory: function () {} };
+                            break;
+                        default:
+                            throw e;
+                        }
+                    }
 
                     return {
                         path: _path,
@@ -38,10 +52,10 @@ app.get('/api/file/ls', function (request, response) {
         });
     } catch (e) {
         switch (e.code) {
-        case 'EACCES':
-        case 'EPERM':
-            response.status(403).end();
-            return;
+        // case 'EACCES':
+        // case 'EPERM':
+        //     response.status(403).end();
+        //     return;
         default:
             throw e;
         }
