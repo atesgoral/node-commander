@@ -24,6 +24,7 @@
                 font-weight: normal;
                 background-color: #eee;
                 cursor: pointer;
+                color: #333;
 
                 &:hover {
                     background-color: #ddd;
@@ -31,6 +32,14 @@
 
                 &:focus {
                     outline: none;
+                }
+
+                &:before {
+                    //content: '\f0d7'; // Down
+                    content: '\f0d8'; // Up
+                    color: #333;
+                    font-family: 'FontAwesome';
+                    padding-right: .33em;
                 }
             }
         }
