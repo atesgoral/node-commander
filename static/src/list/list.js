@@ -1,14 +1,16 @@
 define([
     'angular',
+    'nc',
     'text!./list.html',
     'less!./list'
 ], function (
     angular,
+    nc,
     template
 ) {
     'use strict';
 
-    angular.module('nc.list', []).directive('list', [ '$http', '$window', function ($http, $window) {
+    return nc.directive('list', [ '$http', '$window', function ($http, $window) {
         return {
             restrict: 'E',
             template: template,

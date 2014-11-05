@@ -1,14 +1,16 @@
 define([
     'angular',
+    'nc',
     'text!./pane.html',
     'less!./pane'
 ], function (
     angular,
+    nc,
     template
 ) {
     'use strict';
 
-    angular.module('nc.pane', []).directive('pane', function () {
+    return nc.directive('pane', function () {
         return {
             restrict: 'E',
             template: template,

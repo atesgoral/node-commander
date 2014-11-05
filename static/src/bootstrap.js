@@ -1,12 +1,13 @@
 define([
     'angular',
+    'nc',
     'pane/pane',
     'list/list',
     'less!./main'
-], function (angular) {
+], function (angular, nc) {
     'use strict';
 
-    angular.module('nc.app', []).run([ '$rootScope', '$q', function ($rootScope, $q) {
+    nc.run([ '$rootScope', '$q', function ($rootScope, $q) {
         $rootScope.panes = [{
             tabs: [{
             //}, {
@@ -20,14 +21,11 @@ define([
             $rootScope.panes[0].$element[0].focus(); // @todo preserve previous focused tab
         };
 
+        // @todo use $window?
         angular.element(window).on('focus', function (evt) {
             $rootScope.restoreFocus();
         });
     }]);
 
-    angular.bootstrap(document, [
-        'nc.app',
-        'nc.pane',
-        'nc.list'
-    ]);
+    angular.bootstrap(document, [ 'nc' ]);
 });
