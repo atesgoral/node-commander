@@ -42,7 +42,7 @@ app.get('/api/file/ls', function (request, response) {
                         filename: path.basename(_path),
                         name: name, // @todo redundant
                         ext: ext.substr(1), // @todo redundant
-                        size: stat.size,
+                        size: stat.isDirectory() ? undefined : stat.size,
                         isDirectory: stat.isDirectory(),
                         lastChanged: stat.ctime,
                         lastAccessed: stat.atime,
