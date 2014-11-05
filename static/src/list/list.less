@@ -5,7 +5,6 @@
     line-height: 1;
     border-collapse: separate;
     border-spacing: 1px;
-    cursor: pointer;
     user-select: none;
     // -o-user-select:none;
     // -moz-user-select: none;
@@ -14,21 +13,31 @@
     color: #444;
 
     tr {
-        th, td {
-            padding: 2px 2px;
-        }
-
         th {
-            text-align: left;
-            font-weight: normal;
-            background-color: #eee;
-        }
+            > button {
+                font-size: 14px;
+                border: none;
+                margin: 0;
+                padding: 2px 2px;
+                width: 100%;
+                text-align: left;
+                font-weight: normal;
+                background-color: #eee;
+                cursor: pointer;
 
-        &.-selected {
-            color: red;
+                &:hover {
+                    background-color: #ddd;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
         }
 
         td {
+            padding: 2px 2px;
+
             &._name {
                 &:before {
                     // content: '\f016';
@@ -41,6 +50,10 @@
             &._size {
                 text-align: right;
             }
+        }
+
+        &.-selected {
+            color: red;
         }
 
         &.-directory {
