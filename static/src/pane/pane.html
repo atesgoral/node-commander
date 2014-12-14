@@ -1,8 +1,8 @@
 <div class="pane" ng-class="{ '-focused': focused }" tabindex="{{ 1 + idx }}">
     <ul class="_tabs">
-        <li ng-repeat="tab in tabs" ng-class="{ '-active': activeTabIdx === $index }" ng-click="switchToTab($index)">{{ tab.display }}</li>
+        <li ng-repeat="tab in tabs" ng-class="{ '-active': activeTabIdx === $index }" ng-click="switchToTab($index)" title="{{ tab.sourceUrl }}">{{ getUrlDisplay(tab.sourceUrl) }}</li>
     </ul>
     <div class="_lists">
-        <list ng-repeat="tab in tabs" ng-show="activeTabIdx === $index" sourceUrl="tab.sourceUrl"></list>
+        <list ng-repeat="tab in tabs" ng-show="activeTabIdx === $index" ng-model="tab.sourceUrl"></list>
     </div>
 </div>

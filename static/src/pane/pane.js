@@ -25,12 +25,18 @@ define([
 
                 $scope.activeTabIdx = 0;
 
+                // @todo revise. may just need a list of urls
                 $scope.tabs = pane.tabs.map(function (tab) {
                     return {
-                        display: '?', /*tab.sourceUrl.split(/[\/\\]/).pop(),*/
                         sourceUrl: tab.sourceUrl
                     };
                 });
+
+                $scope.getUrlDisplay = function (url) {
+                    return url
+                        ? url.split(/[\/\\]/).pop() || '/'
+                        : '?';
+                };
 
                 $scope.switchToTab = function (tabIdx) {
                     $scope.activeTabIdx = tabIdx;

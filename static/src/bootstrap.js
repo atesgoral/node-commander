@@ -10,7 +10,6 @@ define([
     nc.run([ '$rootScope', '$q', function ($rootScope, $q) {
         $rootScope.panes = [{
             tabs: [{
-            //}, {
             }]
         }, {
             tabs: [{

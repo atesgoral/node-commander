@@ -15,22 +15,21 @@ define([
             restrict: 'E',
             template: template,
             replace: true,
+            require: '?ngModel',
             // scope: {
             //     sourceUrl: '='
             // },
 
-            link: function ($scope, $element) {
+            link: function ($scope, $element, $attrs, ngModel) {
                 $scope.isSelected = [];
 
-                $scope.$watch('sourceUrl', function () {
-                    // @todo use $scope.sourceUrl
-                    var url = $scope.sourceUrl;
-                    // always assuming file: for now
-
+                // @todo always assuming file:// for now
+                function setUrl(url) {
                     $http.get('/api/file/ls', { params: { dirPath: url } }).then(function (response) {
                         var data = response.data;
 
-                        $scope.dirPath = data.dirPath;
+                        ngModel.$setViewValue(data.dirPath);
+
                         $scope.files = data.files.sort(function (a, b) {
                             return b.isDirectory - a.isDirectory
                                 || a.name.localeCompare(b.name)
@@ -53,7 +52,11 @@ define([
                             $scope.files[$scope.cursorIdx].isForbidden = true;
                         }
                     });
-                });
+                }
+
+                ngModel.$render = function () {
+                    setUrl(ngModel.$viewValue);
+                };
 
                 $scope.$on('move-cursor-by', function (evt, vector) {
                     if ($scope.files && $scope.files.length) {
@@ -148,7 +151,7 @@ define([
 
                     if (file.isDirectory) {
                         $scope.$apply(function () {
-                            $scope.sourceUrl = file.path;
+                            setUrl(file.path);
                         });
                     } else {
                         // @todo shell exec file
@@ -161,7 +164,7 @@ define([
 
                     if (file.name === '..') {
                         $scope.$apply(function () {
-                            $scope.sourceUrl = file.path;
+                            setUrl(file.path);
                         });
                     }
                 });
@@ -199,7 +202,7 @@ define([
 
                     if (file.isDirectory) {
                         $scope.$apply(function () {
-                            $scope.sourceUrl = file.path;
+                            setUrl(file.path);
                         });
                     }
                 });
