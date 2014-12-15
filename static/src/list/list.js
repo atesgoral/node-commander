@@ -16,9 +16,6 @@ define([
             template: template,
             replace: true,
             require: '?ngModel',
-            // scope: {
-            //     sourceUrl: '='
-            // },
 
             link: function ($scope, $element, $attrs, ngModel) {
                 $scope.isSelected = [];

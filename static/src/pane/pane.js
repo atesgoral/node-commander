@@ -112,6 +112,15 @@ define([
                     case 109: // Num /
                         // @todo restore previous selection
                         break;
+                    case 116: // F5
+                        $scope.$broadcast('copy');
+                        break;
+                    case 117: // F6
+                        $scope.$broadcast('move');
+                        break;
+                    case 118: // F7
+                        $scope.$broadcast('new-directory');
+                        break;
                     }
                 });
 
