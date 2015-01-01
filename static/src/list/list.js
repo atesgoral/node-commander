@@ -42,7 +42,7 @@ define([
                             });
                         }
 
-                        $scope.cursorIdx = 0; // @todo set cursor to child dir if just moved up dir
+                        cursor.setPos(0); // @todo set cursor to child dir if just moved up dir
                     }, function (response) {
                         if (response.status) {
                             // @todo improperly implemented
@@ -54,24 +54,6 @@ define([
                 ngModel.$render = function () {
                     setUrl(ngModel.$viewValue);
                 };
-
-                $scope.$on('move-cursor-by', function (evt, vector) {
-                    if ($scope.files && $scope.files.length) {
-                        var cursorIdx = $scope.cursorIdx + vector;
-
-                        if (cursorIdx < 0) {
-                            cursorIdx = 0;
-                        } else if (cursorIdx >= $scope.files.length) {
-                            cursorIdx = $scope.files.length - 1;
-                        }
-
-                        $scope.$apply(function () {
-                            $scope.cursorIdx = cursorIdx;
-                        });
-
-                        // @todo scroll to cursor
-                    }
-                });
 
                 var cursor = (function (list) {
                     var pos = 0;
@@ -125,6 +107,14 @@ define([
                         return $scope.files.length;
                     }
                 });
+
+                var selection = (function () {
+                    var isSelected = [];
+
+                    return {
+
+                    };
+                })();
 
                 var eventHandlerMap = {
                     'cursor-up': cursor.up,

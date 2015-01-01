@@ -56,20 +56,37 @@ define([
                     35: 'END',
                     36: 'HOME',
                     38: 'ARROW_UP',
-                    40: 'ARROW_DOWN'
+                    40: 'ARROW_DOWN',
+                    112: 'F1',
+                    113: 'F2',
+                    114: 'F3',
+                    115: 'F4',
+                    116: 'F5',
+                    117: 'F6',
+                    118: 'F7',
+                    119: 'F8',
+                    120: 'F9',
+                    121: 'F10',
+                    122: 'F11',
+                    123: 'F12'
                 };
 
                 var actionConfig = {
-                    'operation-exec': 'ENTER',
-                    /* Selection */
-                    'selection-toggle': 'SPACE',
                     /* Cursor */
                     'cursor-up': 'ARROW_UP',
                     'cursor-down': 'ARROW_DOWN',
                     'cursor-page-up': 'PAGE_UP',
                     'cursor-page-down': 'PAGE_DOWN',
                     'cursor-first': 'HOME',
-                    'cursor-last': 'END'
+                    'cursor-last': 'END',
+                    /* Selection */
+                    'selection-toggle': 'SPACE',
+                    /* Operations */
+                    'operation-exec': 'ENTER',
+                    'operation-dir-up': 'BACKSPACE',
+                    'operation-copy': 'F5',
+                    'operation-move': 'F6',
+                    'operation-new-directory': 'F7'
                 };
 
                 var keyComboActionEventMap = {};
@@ -104,15 +121,12 @@ define([
 
                     if (actionEvent) {
                         // @todo directly call methods on interfaces instead of messaging?
+                        evt.preventDefault();
                         $scope.$broadcast(actionEvent);
                         return;
                     }
 
                     switch (evt.which) {
-                    case 8: // Backspace
-                        $scope.$broadcast('operation-dir-up');
-                        evt.preventDefault();
-                        break;
                     case 9: // Tab
                         // @todo perhaps no need to use tabindex + proper focus
                         if (paneIdx == 1) { // @todo better way to say "last tab"
@@ -147,15 +161,6 @@ define([
                     case 191: // /
                     case 109: // Num /
                         // @todo restore previous selection
-                        break;
-                    case 116: // F5
-                        $scope.$broadcast('operation-copy');
-                        break;
-                    case 117: // F6
-                        $scope.$broadcast('operation-move');
-                        break;
-                    case 118: // F7
-                        $scope.$broadcast('operation-new-directory');
                         break;
                     }
                 });
