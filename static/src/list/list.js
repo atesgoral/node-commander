@@ -73,24 +73,82 @@ define([
                     }
                 });
 
-                $scope.$on('move-cursor-to', function (evt, where) {
-                    if ($scope.files && $scope.files.length) {
-                        var cursorIdx = {
-                            first: 0,
-                            last: $scope.files.length - 1
-                        }[where];
+                var cursor = (function (list) {
+                    var pos = 0;
 
-                        if (!isNaN(cursorIdx)) {
-                            $scope.$apply(function () {
-                                $scope.cursorIdx = cursorIdx;
-                            });
+                    function moveTo(newPos) {
+                        pos = newPos;
+                    }
+
+                    function moveBy(amount) {
+                        var newPos = pos + amount,
+                            itemCount = list.getItemCount();
+
+                        if (newPos < 0) {
+                            newPos = 0;
+                        } else if (newPos >= itemCount) {
+                            newPos = itemCount - 1;
                         }
 
-                        // @todo scroll to cursor
+                        moveTo(newPos);
+                    }
+
+                    return {
+                        setPos: function (newPos) {
+                            pos = newPos;
+                        },
+                        getPos: function () {
+                            return pos;
+                        },
+                        up: function () {
+                            moveBy(-1);
+                        },
+                        down: function () {
+                            moveBy(1);
+                        },
+                        pageUp: function () {
+                            // @todo determine actual page size from viewport
+                            moveBy(-10);
+                        },
+                        pageDown: function () {
+                            moveBy(10);
+                        },
+                        first: function () {
+                            moveTo(0);
+                        },
+                        last: function () {
+                            moveTo(list.getItemCount() - 1);
+                        }
+                    };
+                })({
+                    getItemCount: function () {
+                        return $scope.files.length;
                     }
                 });
 
-                $scope.$on('toggle-selection', function (evt) {
+                var eventHandlerMap = {
+                    'cursor-up': cursor.up,
+                    'cursor-down': cursor.down,
+                    'cursor-page-up': cursor.pageUp,
+                    'cursor-page-down': cursor.pageDown,
+                    'cursor-first': cursor.first,
+                    'cursor-last': cursor.last
+                };
+
+                angular.forEach(eventHandlerMap, function (eventHandler, eventName) {
+                    $scope.$on(eventName, function () {
+                        eventHandler();
+                        // @todo scroll to cursor
+                        $scope.$digest();
+                    });
+                });
+
+                $scope.getCursorPos = function () {
+                    return cursor.getPos();
+                };
+
+                $scope.$on('selection-toggle', function (evt) {
+                    // @todo if dir, calculate dir size
                     if ($scope.files && $scope.files.length) {
                         $scope.$apply(function () {
                             $scope.isSelected[$scope.cursorIdx] = !$scope.isSelected[$scope.cursorIdx];
@@ -98,7 +156,7 @@ define([
                     }
                 });
 
-                $scope.$on('invert-selection', function (evt) {
+                $scope.$on('selection-invert', function (evt) {
                     if ($scope.files && $scope.files.length) {
                         $scope.$apply(function () {
                             $scope.files.forEach(function (file, idx) {
@@ -134,15 +192,15 @@ define([
                     }
                 }
 
-                $scope.$on('expand-selection', function (evt) {
+                $scope.$on('selection-expand', function (evt) {
                     modifySelection(true);
                 });
 
-                $scope.$on('shrink-selection', function (evt) {
+                $scope.$on('selection-shrink', function (evt) {
                     modifySelection(false);
                 });
 
-                $scope.$on('exec', function (evt) {
+                $scope.$on('operation-exec', function (evt) {
                     // @todo if ($scope.files && $scope.files.length) {
                     var file = $scope.files[$scope.cursorIdx];
 
@@ -155,7 +213,7 @@ define([
                     }
                 });
 
-                $scope.$on('dir-up', function (evt) {
+                $scope.$on('operation-dir-up', function (evt) {
                     // @todo if ($scope.files && $scope.files.length) {
                     var file = $scope.files[0];
 

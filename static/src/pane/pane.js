@@ -46,10 +46,71 @@ define([
                     $scope.focused = !$scope.focused;
                 });
 
+                var keyCodeMnemonicMap = {
+                    8: 'BACKSPACE',
+                    9: 'TAB',
+                    13: 'ENTER',
+                    32: 'SPACE',
+                    33: 'PAGE_UP',
+                    34: 'PAGE_DOWN',
+                    35: 'END',
+                    36: 'HOME',
+                    38: 'ARROW_UP',
+                    40: 'ARROW_DOWN'
+                };
+
+                var actionConfig = {
+                    'operation-exec': 'ENTER',
+                    /* Selection */
+                    'selection-toggle': 'SPACE',
+                    /* Cursor */
+                    'cursor-up': 'ARROW_UP',
+                    'cursor-down': 'ARROW_DOWN',
+                    'cursor-page-up': 'PAGE_UP',
+                    'cursor-page-down': 'PAGE_DOWN',
+                    'cursor-first': 'HOME',
+                    'cursor-last': 'END'
+                };
+
+                var keyComboActionEventMap = {};
+
+                for (var actionEvent in actionConfig) {
+                    keyComboActionEventMap[actionConfig[actionEvent]] = actionEvent;
+                }
+
                 $element.on('keydown', function (evt) {
+                    var keyMnemonic = keyCodeMnemonicMap[evt.which];
+
+                    if (!keyMnemonic) {
+                        // Unknown key, ignore
+                        return;
+                    }
+
+                    var keyComboParts = [];
+
+                    if (evt.shiftKey) {
+                        keyComboParts.push('SHIFT');
+                    }
+
+                    if (evt.ctrlKey) {
+                        keyComboParts.push('CTRL');
+                    }
+
+                    keyComboParts.push(keyMnemonic);
+
+                    var keyCombo = keyComboParts.join('+');
+
+                    var actionEvent = keyComboActionEventMap[keyCombo];
+
+                    if (actionEvent) {
+                        // @todo directly call methods on interfaces instead of messaging?
+                        $scope.$broadcast(actionEvent);
+                        return;
+                    }
+
                     switch (evt.which) {
                     case 8: // Backspace
-                        $scope.$broadcast('dir-up');
+                        $scope.$broadcast('operation-dir-up');
                         evt.preventDefault();
                         break;
                     case 9: // Tab
@@ -59,34 +120,9 @@ define([
                             evt.preventDefault();
                         }
                         break;
-                    case 13: // Enter
-                        $scope.$broadcast('exec');
-                        break;
-                    case 32: // Space
-                        $scope.$broadcast('toggle-selection');
-                        // @todo compute directory size
-                        break;
-                    case 38: // Arrow up
-                        $scope.$broadcast('move-cursor-by', -1);
-                        break;
-                    case 40: // Arrow down
-                        $scope.$broadcast('move-cursor-by', 1);
-                        break;
-                    case 33: // Page Up
-                        $scope.$broadcast('move-cursor-by', -10); // @todo determine page size
-                        break;
-                    case 34: // Page Down
-                        $scope.$broadcast('move-cursor-by', 10); // @todo determine page size
-                        break;
-                    case 36: // Home
-                        $scope.$broadcast('move-cursor-to', 'first');
-                        break;
-                    case 35: // End
-                        $scope.$broadcast('move-cursor-to', 'last');
-                        break;
                     case 45: // Insert
-                        $scope.$broadcast('toggle-selection');
-                        $scope.$broadcast('move-cursor-by', 1);
+                        $scope.$broadcast('selection-toggle');
+                        $scope.$broadcast('cursor-down');
                         break;
                     case 56: // 8 (*)
                         if (!evt.shiftKey) {
@@ -94,7 +130,7 @@ define([
                         }
                         /* falls through */
                     case 106: // Num *
-                        $scope.$broadcast('invert-selection');
+                        $scope.$broadcast('selection-invert');
                         break;
                     case 187: // = (+)
                         if (!evt.shiftKey) {
@@ -102,24 +138,24 @@ define([
                         }
                         /* falls through */
                     case 107: // Num +
-                        $scope.$broadcast('expand-selection');
+                        $scope.$broadcast('selection-expand');
                         break;
                     case 189: // -
                     case 109: // Num -
-                        $scope.$broadcast('shrink-selection');
+                        $scope.$broadcast('selection-shrink');
                         break;
                     case 191: // /
                     case 109: // Num /
                         // @todo restore previous selection
                         break;
                     case 116: // F5
-                        $scope.$broadcast('copy');
+                        $scope.$broadcast('operation-copy');
                         break;
                     case 117: // F6
-                        $scope.$broadcast('move');
+                        $scope.$broadcast('operation-move');
                         break;
                     case 118: // F7
-                        $scope.$broadcast('new-directory');
+                        $scope.$broadcast('operation-new-directory');
                         break;
                     }
                 });
