@@ -126,6 +126,7 @@ define([
                         return;
                     }
 
+                    // @todo convert to action config
                     switch (evt.which) {
                     case 9: // Tab
                         // @todo perhaps no need to use tabindex + proper focus
